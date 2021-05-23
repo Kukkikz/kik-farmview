@@ -1,0 +1,20 @@
+{
+    "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82": {
+        "id": "pancakeswap-token",
+        "symbol": "cake",
+        "name": "PancakeSwap",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/12632/large/IMG_0440.PNG?1602654093",
+        "decimals": 18,
+        "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+    },
+    "0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51": {
+        "id": "pancake-bunny",
+        "symbol": "bunny",
+        "name": "Pancake Bunny",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/13148/large/kZwE0Xor_400x400.jpg?1605682082",
+        "decimals": 18,
+        "address": "0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51"
+    }
+}
