@@ -1,5 +1,7 @@
 const Web3 = require("web3");
 const pancakeBunny = require("../farmPlatforms/pancakebunny/pancakebunny");
+const autofarm = require("../farmPlatforms/autofarm/autofarm");
+const alpaca = require("../farmPlatforms/alpaca/alpaca");
 
 // You can use any RPC endpoint from
 // https://docs.binance.org/smart-chain/developer/rpc.html
@@ -23,14 +25,33 @@ const getBunnyCakeContract = () => {
     return bunnyCakeContract;
 }
 
-const callPoolOf = async (address, poolAddress) => {
-    
+const getAutofarmContract = () => {
+    const autofarmContract = getContract(autofarm.farmAbi,autofarm.MASTER_CHEF);
+    // console.log(autofarmContract);
+
+    // const temp = autofarm.setupFarmData();
+
+    return autofarmContract;
 }
 
+const getAlpacaWorkerContract = () => {
+    const alpacaWorkerContract = getContract(alpaca.workerAbi, alpaca.workerContract);
+    // console.log(alpacaWorkerContract.methods);
+    return alpacaWorkerContract;
+}
+
+const getAlpacaFairlaunchContract = () => {
+    const alpacaFairlaunchContract = getContract(alpaca.fairlaunchAbi, alpaca.fairlaunchContract);
+    // console.log(alpacaFairlaunchContract.methods);
+    return alpacaFairlaunchContract;
+}
 
 module.exports = {
     web3: web3,
     getContract,
     getBunnyCakeContract,
-    cakePoolContract: pancakeBunny.farms.CAKE.address
+    getAutofarmContract,
+    cakePoolContract: pancakeBunny.farms.CAKE.address,
+    getAlpacaWorkerContract,
+    getAlpacaFairlaunchContract
 }

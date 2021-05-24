@@ -1,23 +1,60 @@
 const Web3Service = require("./services/web3Service");
 const pancakeBunny = require("./farmPlatforms/pancakebunny/pancakebunny");
+const autofarm = require('./farmPlatforms/autofarm/autofarm');
+const alpaca = require('./farmPlatforms/alpaca/alpaca');
 const express = require('express')
-
-const MasterChef = {
-    "abi": [{ "inputs": [{ "internalType": "contract CakeToken", "name": "_cake", "type": "address" }, { "internalType": "contract SyrupBar", "name": "_syrup", "type": "address" }, { "internalType": "address", "name": "_devaddr", "type": "address" }, { "internalType": "uint256", "name": "_cakePerBlock", "type": "uint256" }, { "internalType": "uint256", "name": "_startBlock", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Deposit", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "EmergencyWithdraw", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "previousOwner", "type": "address" }, { "indexed": true, "internalType": "address", "name": "newOwner", "type": "address" }], "name": "OwnershipTransferred", "type": "event" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "user", "type": "address" }, { "indexed": true, "internalType": "uint256", "name": "pid", "type": "uint256" }, { "indexed": false, "internalType": "uint256", "name": "amount", "type": "uint256" }], "name": "Withdraw", "type": "event" }, { "inputs": [], "name": "BONUS_MULTIPLIER", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_allocPoint", "type": "uint256" }, { "internalType": "contract IBEP20", "name": "_lpToken", "type": "address" }, { "internalType": "bool", "name": "_withUpdate", "type": "bool" }], "name": "add", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "cake", "outputs": [{ "internalType": "contract CakeToken", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "cakePerBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "deposit", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "_devaddr", "type": "address" }], "name": "dev", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "devaddr", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }], "name": "emergencyWithdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "enterStaking", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_from", "type": "uint256" }, { "internalType": "uint256", "name": "_to", "type": "uint256" }], "name": "getMultiplier", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "leaveStaking", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "massUpdatePools", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }], "name": "migrate", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "migrator", "outputs": [{ "internalType": "contract IMigratorChef", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "owner", "outputs": [{ "internalType": "address", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "address", "name": "_user", "type": "address" }], "name": "pendingCake", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "name": "poolInfo", "outputs": [{ "internalType": "contract IBEP20", "name": "lpToken", "type": "address" }, { "internalType": "uint256", "name": "allocPoint", "type": "uint256" }, { "internalType": "uint256", "name": "lastRewardBlock", "type": "uint256" }, { "internalType": "uint256", "name": "accCakePerShare", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "poolLength", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "renounceOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_allocPoint", "type": "uint256" }, { "internalType": "bool", "name": "_withUpdate", "type": "bool" }], "name": "set", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "contract IMigratorChef", "name": "_migrator", "type": "address" }], "name": "setMigrator", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [], "name": "startBlock", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "syrup", "outputs": [{ "internalType": "contract SyrupBar", "name": "", "type": "address" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "totalAllocPoint", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "newOwner", "type": "address" }], "name": "transferOwnership", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "multiplierNumber", "type": "uint256" }], "name": "updateMultiplier", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }], "name": "updatePool", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }, { "internalType": "address", "name": "", "type": "address" }], "name": "userInfo", "outputs": [{ "internalType": "uint256", "name": "amount", "type": "uint256" }, { "internalType": "uint256", "name": "rewardDebt", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint256", "name": "_pid", "type": "uint256" }, { "internalType": "uint256", "name": "_amount", "type": "uint256" }], "name": "withdraw", "outputs": [], "stateMutability": "nonpayable", "type": "function" }]
-}
 
 const app = express()
 const PORT = process.env.PORT || 8080
 
 const bunnyCakeContract = Web3Service.getBunnyCakeContract();
+const autofarmContract = Web3Service.getAutofarmContract();
+const alpacaWorkerContract = Web3Service.getAlpacaWorkerContract();
+const alpacaFairlaunchContract = Web3Service.getAlpacaFairlaunchContract();
 
 app.get('/', async (req, res) => {
     try {
+        //Init Data
+        console.log("Init Data");
+        autofarm.initFarmData();
         const myAddress = req.query.address;
+        let response = [];
+        //Bunny - Cake
+        console.log("Getting Bunny - Cake");
         const cakeBunnyPoolInfo = await bunnyCakeContract.methods.poolsOf(myAddress, [Web3Service.cakePoolContract]).call();
         const bunnyCakeInfo = await pancakeBunny.getMyFarmInfo(cakeBunnyPoolInfo, "Cake - PancakeBunny");
+        response.push(bunnyCakeInfo);
 
-        res.send(bunnyCakeInfo);
+        //Autofarm - Cake
+        console.log("Getting Autofarm - Cake");
+        const pendingAutofarmCake = await autofarmContract.methods.pendingAUTO(autofarm.myFarmsPid[0], myAddress).call();
+        const depositAutofarmCake = await autofarmContract.methods.stakedWantTokens(autofarm.myFarmsPid[0], myAddress).call();
+        const autofarmCakeInFo = await autofarm.getMyFarmInfo(pendingAutofarmCake, depositAutofarmCake, autofarm.myFarmsPid[0]);
+        response.push(autofarmCakeInFo);
+
+        //Autofarm - ibnb
+        console.log("Getting Autofarm - ibnb");
+        const pendingAutofarmibnb = await autofarmContract.methods.pendingAUTO(autofarm.myFarmsPid[1], myAddress).call();
+        const depositAutofarmibnb = await autofarmContract.methods.stakedWantTokens(autofarm.myFarmsPid[1], myAddress).call();
+        const autofarmibnbInFo = await autofarm.getMyFarmInfo(pendingAutofarmibnb, depositAutofarmibnb, autofarm.myFarmsPid[1]);
+        response.push(autofarmibnbInFo);
+
+        //Autofarm - banana-busd
+        console.log("Getting Autofarm - banana-busd");
+        const pendingAutofarmbanana = await autofarmContract.methods.pendingAUTO(autofarm.myFarmsPid[2], myAddress).call();
+        const depositAutofarmbanana = await autofarmContract.methods.stakedWantTokens(autofarm.myFarmsPid[2], myAddress).call();
+        const autofarmbananaInFo = await autofarm.getMyFarmInfo(pendingAutofarmbanana, depositAutofarmbanana, autofarm.myFarmsPid[2]);
+        response.push(autofarmbananaInFo);
+
+        //Alpaca - BNB-BUSD
+        console.log("Getting Alpaca - BNB-BUSD");
+        const alpacaPoolInfo = await alpacaWorkerContract.methods.positionInfo(alpaca.myFarmConfig.positionId).call();
+        const pendingAlpaca = await alpacaFairlaunchContract.methods.pendingAlpaca(alpaca.myFarmConfig.pid, myAddress).call();
+        const alpacaInfo = await alpaca.getMyFarmInfo(alpacaPoolInfo,pendingAlpaca,"ALpaca - BNB-BUSD");
+        response.push(alpacaInfo);
+
+        console.log("Done - send response");
+        res.send(response);
     } catch {
         res.send('failed');
     }

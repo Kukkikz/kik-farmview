@@ -16,5 +16,41 @@
         "logo": "https://assets.coingecko.com/coins/images/13148/large/kZwE0Xor_400x400.jpg?1605682082",
         "decimals": 18,
         "address": "0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51"
+    },
+    "0xa184088a740c695e156f91f5cc086a06bb78b827": {
+        "id": "auto",
+        "symbol": "auto",
+        "name": "Auto",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/13751/large/autofarm_icon_200x200.png?1611494288",
+        "decimals": 18,
+        "address": "0xa184088a740c695e156f91f5cc086a06bb78b827"
+    },
+    "0x8f0528ce5ef7b51152a59745befdd91d97091d2f": {
+        "id": "alpaca-finance",
+        "symbol": "alpaca",
+        "name": "alpaca",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/14165/large/Logo200.png?1614748442",
+        "decimals": 18,
+        "address": "0x8f0528ce5ef7b51152a59745befdd91d97091d2f"
+    },
+    "0xe9e7cea3dedca5984780bafc599bd69add087d56": {
+        "id": "binance-usd",
+        "symbol": "busd",
+        "name": "Binance USD",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/9576/large/BUSD.png?1568947766",
+        "decimals": 18,
+        "address": "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+    },
+    "0x844fa82f1e54824655470970f7004dd90546bb28": {
+        "id": "dopple-finance",
+        "symbol": "DOP",
+        "name": "Dopple",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://dopple.finance/_next/image?url=%2Fimages%2Flogo.svg&w=128&q=75",
+        "decimals": 18,
+        "address": "0x844fa82f1e54824655470970f7004dd90546bb28"
     }
 }

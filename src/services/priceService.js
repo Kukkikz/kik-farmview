@@ -7,7 +7,6 @@ const getPrice = async (address) => {
         let id = "";
         if (address in tokens) {
             id = tokens[address].id;
-            console.log(id);
             const res = await axios.get(
                 `https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd`
             );
