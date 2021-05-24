@@ -2,6 +2,7 @@ const Web3Service = require("./services/web3Service");
 const pancakeBunny = require("./farmPlatforms/pancakebunny/pancakebunny");
 const autofarm = require('./farmPlatforms/autofarm/autofarm');
 const alpaca = require('./farmPlatforms/alpaca/alpaca');
+const dopple = require('./farmPlatforms/dopple/dopple');
 const express = require('express')
 
 const app = express()
@@ -11,6 +12,8 @@ const bunnyCakeContract = Web3Service.getBunnyCakeContract();
 const autofarmContract = Web3Service.getAutofarmContract();
 const alpacaWorkerContract = Web3Service.getAlpacaWorkerContract();
 const alpacaFairlaunchContract = Web3Service.getAlpacaFairlaunchContract();
+const doppleFairlaunchContract = Web3Service.getDoppleFairlaunchContract();
+const doppleDopPoolContract = Web3Service.getDoppleDopPoolContract();
 
 app.get('/', async (req, res) => {
     try {
@@ -50,8 +53,16 @@ app.get('/', async (req, res) => {
         console.log("Getting Alpaca - BNB-BUSD");
         const alpacaPoolInfo = await alpacaWorkerContract.methods.positionInfo(alpaca.myFarmConfig.positionId).call();
         const pendingAlpaca = await alpacaFairlaunchContract.methods.pendingAlpaca(alpaca.myFarmConfig.pid, myAddress).call();
-        const alpacaInfo = await alpaca.getMyFarmInfo(alpacaPoolInfo,pendingAlpaca,"ALpaca - BNB-BUSD");
+        const alpacaInfo = await alpaca.getMyFarmInfo(alpacaPoolInfo,pendingAlpaca,"Alpaca - BNB-BUSD");
         response.push(alpacaInfo);
+
+        //Dopple - DOP Pool
+        console.log("Getting Dopple - DOP Pool");
+        const doppleLp = await doppleFairlaunchContract.methods.userInfo(dopple.myFarmConfig.pid, myAddress).call();
+        const pendingDopple = await doppleFairlaunchContract.methods.pendingDopple(dopple.myFarmConfig.pid, myAddress).call();
+        const doppleLpPrice = await doppleDopPoolContract.methods.getVirtualPrice().call();
+        const doppleInfo = await dopple.getMyFarmInfo(doppleLp.amount,pendingDopple,doppleLpPrice, "Dopple - DOP Pool");
+        response.push(doppleInfo);
 
         console.log("Done - send response");
         res.send(response);

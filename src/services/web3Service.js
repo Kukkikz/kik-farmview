@@ -2,6 +2,7 @@ const Web3 = require("web3");
 const pancakeBunny = require("../farmPlatforms/pancakebunny/pancakebunny");
 const autofarm = require("../farmPlatforms/autofarm/autofarm");
 const alpaca = require("../farmPlatforms/alpaca/alpaca");
+const dopple = require("../farmPlatforms/dopple/dopple");
 
 // You can use any RPC endpoint from
 // https://docs.binance.org/smart-chain/developer/rpc.html
@@ -36,15 +37,22 @@ const getAutofarmContract = () => {
 
 const getAlpacaWorkerContract = () => {
     const alpacaWorkerContract = getContract(alpaca.workerAbi, alpaca.workerContract);
-    // console.log(alpacaWorkerContract.methods);
     return alpacaWorkerContract;
 }
 
 const getAlpacaFairlaunchContract = () => {
     const alpacaFairlaunchContract = getContract(alpaca.fairlaunchAbi, alpaca.fairlaunchContract);
-    // console.log(alpacaFairlaunchContract.methods);
     return alpacaFairlaunchContract;
 }
+
+const getDoppleFairlaunchContract = () => {
+    return getContract(dopple.fairlaunchAbi, dopple.fairlaunchContract);
+}
+
+const getDoppleDopPoolContract = () => {
+    return getContract(dopple.dopPoolAbi, dopple.dopPoolContract);
+}
+
 
 module.exports = {
     web3: web3,
@@ -53,5 +61,7 @@ module.exports = {
     getAutofarmContract,
     cakePoolContract: pancakeBunny.farms.CAKE.address,
     getAlpacaWorkerContract,
-    getAlpacaFairlaunchContract
+    getAlpacaFairlaunchContract,
+    getDoppleFairlaunchContract,
+    getDoppleDopPoolContract
 }

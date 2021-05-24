@@ -13,16 +13,12 @@ const myFarmConfig = {
 }
 
 const getMyFarmInfo = async (alpacaPoolInfo, pendingAlpaca, farmName) => {
-    console.log("Total =", alpacaPoolInfo[0], "debt =", alpacaPoolInfo[1]);
     const result = {};
 
     const alpacaPrice = await priceService.getPrice(alpacaAddress);
     const busdPrice = await priceService.getPrice(busdAddress);
-
-    console.log('alpaca =', alpacaPrice, "| busd price =", busdPrice);
+    
     result.farm = farmName;
-    // const temp = alpacaPoolInfo[0] - alpacaPoolInfo[1];
-    // console.log(temp);
     result.depositBusd = (parseFloat(alpacaPoolInfo[0]) - parseFloat(alpacaPoolInfo[1])) / 1e18
     result.depositValue = result.depositBusd * busdPrice;
     result.pendingAlpaca = pendingAlpaca / 1e18;

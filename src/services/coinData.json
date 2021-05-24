@@ -52,5 +52,14 @@
         "logo": "https://dopple.finance/_next/image?url=%2Fimages%2Flogo.svg&w=128&q=75",
         "decimals": 18,
         "address": "0x844fa82f1e54824655470970f7004dd90546bb28"
+    },
+    "0x8CEF274596d334FFa10f8976a920DDC81ba6e29b": {
+        "id": "growing-fi",
+        "symbol": "GROW",
+        "name": "Growing.fi",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/15253/large/grow.PNG?1620266437",
+        "decimals": 18,
+        "address": "0x8CEF274596d334FFa10f8976a920DDC81ba6e29b"
     }
 }
