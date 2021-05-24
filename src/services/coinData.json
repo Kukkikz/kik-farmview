@@ -61,5 +61,14 @@
         "logo": "https://assets.coingecko.com/coins/images/15253/large/grow.PNG?1620266437",
         "decimals": 18,
         "address": "0x8CEF274596d334FFa10f8976a920DDC81ba6e29b"
+    },
+    "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c": {
+        "id": "binancecoin",
+        "symbol": "bnb",
+        "name": "Binance Coin",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/825/large/binance-coin-logo.png?1547034615",
+        "decimals": 18,
+        "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c"
     }
 }
