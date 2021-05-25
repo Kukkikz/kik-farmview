@@ -39,7 +39,8 @@ const setupFarmData = async () => {
                 "farmName": `${farm.farmName}-${farm.wantName}`,
                 "wantPrize": parseFloat(farm.wantPrice)
             }
-            myFarmsInfo[key] = farmInfo;
+            // myFarmsInfo[key] = farmInfo;
+            myFarmsInfo.set(key, farmInfo);
         }
     }
     return myFarmsInfo;
@@ -50,14 +51,16 @@ const initFarmData = async () => {
 }
 
 const getMyFarmInfo = async (pendingAuto, deposit, pid) => {
-    const farm = autoFarmMap[pid];
+    const farm = autoFarmMap.get(pid);
     const result = {
-        "farm": farm.farmName,
+        "farm": `Auto - ${farm.farmName}`,
         "deposit": deposit / 1e18,
         "pendingAuto": pendingAuto / 1e18,
         "depositValue": (deposit / 1e18) * farm.wantPrize,
         "pendingValue": (pendingAuto / 1e18) * autoPrice
     };
+
+    result.totalValue = result.depositValue + result.pendingValue;
     
     return result;
 }

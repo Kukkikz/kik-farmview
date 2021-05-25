@@ -18,6 +18,7 @@ const getMyFarmInfo = async (deposit, dopple, lpPrice, farmName ) => {
     result.pendingDop = dopple / 1e18;
     result.depositValue = result.deposit * (lpPrice / 1e18);
     result.pendingValue = result.pendingDop * dopPrice;
+    result.totalValue = result.depositValue + result.pendingValue;
 
     return(result);
 }

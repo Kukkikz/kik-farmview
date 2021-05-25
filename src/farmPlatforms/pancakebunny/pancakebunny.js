@@ -10,7 +10,7 @@ const getMyFarmInfo = async (poolInfo, farmName) => {
 
   result.farm = farmName;
 
-  result.depositedCake = poolInfo[0].balance / 1e18;
+  result.depositedCake = poolInfo[0].principal / 1e18;
   result.pendingCake = poolInfo[0].pBASE / 1e18;
   result.pendingBunny = poolInfo[0].pBUNNY / 1e18;
 
@@ -20,6 +20,8 @@ const getMyFarmInfo = async (poolInfo, farmName) => {
   result.depositValue = cakePrice * result.depositedCake;
   result.pendingCakeValue = cakePrice * result.pendingCake;
   result.pendingBunnyValue = bunnyPrice * result.pendingBunny;
+
+  result.totalValue = result.depositValue + result.pendingCakeValue + result.pendingBunnyValue;
   
   return result;
 }

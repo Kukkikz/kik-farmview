@@ -23,6 +23,8 @@ const getMyFarmInfo = async (alpacaPoolInfo, pendingAlpaca, farmName) => {
     result.depositValue = result.depositBusd * busdPrice;
     result.pendingAlpaca = pendingAlpaca / 1e18;
     result.pendingValue = result.pendingAlpaca * alpacaPrice;
+    result.totalValue = result.depositValue + result.pendingValue;
+
     return(result);
 }
 
