@@ -1,0 +1,1 @@
+const priceService = require('./priceService');

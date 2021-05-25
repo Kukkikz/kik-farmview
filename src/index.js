@@ -3,6 +3,8 @@ const pancakeBunny = require("./farmPlatforms/pancakebunny/pancakebunny");
 const autofarm = require('./farmPlatforms/autofarm/autofarm');
 const alpaca = require('./farmPlatforms/alpaca/alpaca');
 const dopple = require('./farmPlatforms/dopple/dopple');
+const alpha = require('./farmPlatforms/alpha/alpha');
+const grow = require('./farmPlatforms/grow/grow');
 const express = require('express')
 
 const app = express()
@@ -14,6 +16,9 @@ const alpacaWorkerContract = Web3Service.getAlpacaWorkerContract();
 const alpacaFairlaunchContract = Web3Service.getAlpacaFairlaunchContract();
 const doppleFairlaunchContract = Web3Service.getDoppleFairlaunchContract();
 const doppleDopPoolContract = Web3Service.getDoppleDopPoolContract();
+const alphaContract = Web3Service.getAlphaContract();
+const growFarmContract = Web3Service.getGrowFarmContract();
+const growMinterContract = Web3Service.getGrowMinterContract();
 
 app.get('/', async (req, res) => {
     try {
@@ -22,6 +27,7 @@ app.get('/', async (req, res) => {
         autofarm.initFarmData();
         const myAddress = req.query.address;
         let response = [];
+        
         //Bunny - Cake
         console.log("Getting Bunny - Cake");
         const cakeBunnyPoolInfo = await bunnyCakeContract.methods.poolsOf(myAddress, [Web3Service.cakePoolContract]).call();
@@ -63,6 +69,21 @@ app.get('/', async (req, res) => {
         const doppleLpPrice = await doppleDopPoolContract.methods.getVirtualPrice().call();
         const doppleInfo = await dopple.getMyFarmInfo(doppleLp.amount,pendingDopple,doppleLpPrice, "Dopple - DOP Pool");
         response.push(doppleInfo);
+
+        //Alpha Homora - BNB-BUSD
+        console.log("Getting Alpha Homora - BNB-BUSD");
+        const alphaPoolInfo = await alphaContract.methods.positionInfo(alpha.myFarmConfig.positionId).call();
+        const alphaInfo = await alpha.getMyFarmInfo(alphaPoolInfo, "Alpha Homora - BNB-BUSD");
+        response.push(alphaInfo);
+
+        //Grow - BUSD farm
+        console.log("Getting Grow - BUSD farm");
+        const growPoolBalance = await growFarmContract.methods.balanceOf(myAddress).call();
+        console.log(growPoolBalance);
+        const pendingGrow = await growMinterContract.methods.strategyUsers(grow.growFarmContract, myAddress).call();
+        console.log(pendingGrow);
+        const growInfo = await grow.getMyFarmInfo(growPoolBalance, pendingGrow, "Grow - BUSD");
+        response.push(growInfo);
 
         console.log("Done - send response");
         res.send(response);
