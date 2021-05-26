@@ -42,7 +42,8 @@
         "platform": "BINANCE_SMART_CHAIN",
         "logo": "https://assets.coingecko.com/coins/images/9576/large/BUSD.png?1568947766",
         "decimals": 18,
-        "address": "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+        "address": "0xe9e7cea3dedca5984780bafc599bd69add087d56",
+        "stable": true
     },
     "0x844fa82f1e54824655470970f7004dd90546bb28": {
         "id": "dopple-finance",
@@ -70,5 +71,89 @@
         "logo": "https://assets.coingecko.com/coins/images/825/large/binance-coin-logo.png?1547034615",
         "decimals": 18,
         "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c"
+    },
+    "0x39f1014a88c8ec087cedf1bfc7064d24f507b894": {
+        "id": "safebsc",
+        "symbol": "scz",
+        "name": "SafeBSC",
+        "platform": "BINANCE_SMART_CHAIN",
+        "decimals": 18,
+        "address": "0x39f1014a88c8ec087cedf1bfc7064d24f507b894",
+        "source": "pancake"
+    },
+    "0x55d398326f99059ff775485246999027b3197955": {
+        "id": "tether",
+        "symbol": "usdt",
+        "name": "Binance-Peg BUSD-T",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/325/large/Tether-logo.png?1598003707",
+        "decimals": 18,
+        "address": "0x55d398326f99059ff775485246999027b3197955",
+        "stable": true
+    },
+    "0xe0e514c71282b6f4e823703a39374cf58dc3ea4f": {
+        "id": "belt",
+        "symbol": "belt",
+        "name": "belt",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/14319/small/belt_logo.jpg?1615387083",
+        "decimals": 18,
+        "address": "0xe0e514c71282b6f4e823703a39374cf58dc3ea4f"
+    },
+    "0x7a9f28eb62c791422aa23ceae1da9c847cbec9b0": {
+        "id": "yieldwatch",
+        "symbol": "watch",
+        "name": "Yieldwatch",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/14186/small/WATCH1.png?1614825718",
+        "decimals": 18,
+        "address": "0x7a9f28eb62c791422aa23ceae1da9c847cbec9b0"
+    },
+    "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3": {
+        "id": "dai",
+        "symbol": "dai",
+        "name": "Binance-Peg Dai",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/9956/large/dai-multi-collateral-mcd.png?1574218774",
+        "decimals": 18,
+        "address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+        "stable": true
+    },
+    "0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63": {
+        "id": "venus",
+        "symbol": "xvs",
+        "name": "Venus",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/12677/large/venus.jpg?1601595147",
+        "decimals": 18,
+        "address": "0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63"
+    },
+    "0x4f0ed527e8a95ecaa132af214dfd41f30b361600": {
+        "id": "vbswap",
+        "symbol": "vBSWAP",
+        "name": "vBSWAP",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/14133/small/vbswap_22.png?1614601485",
+        "decimals": 18,
+        "address": "0x4f0ed527e8a95ecaa132af214dfd41f30b361600"
+    },
+    "0x81859801b01764d4f0fa5e64729f5a6c3b91435b": {
+        "id": "bearn-fi",
+        "symbol": "bfi",
+        "name": "Bearn.fi",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/13289/large/black.jpg?1608600768",
+        "decimals": 18,
+        "address": "0x81859801b01764d4f0fa5e64729f5a6c3b91435b"
+    },
+    "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d": {
+        "id": "usd-coin",
+        "symbol": "usdc",
+        "name": "Binance-Peg USD Coin",
+        "platform": "BINANCE_SMART_CHAIN",
+        "logo": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+        "decimals": 18,
+        "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+        "stable": true
     }
 }

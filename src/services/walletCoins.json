@@ -1,0 +1,70 @@
+[
+    {
+        "name": "BNB",
+        "address": "0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c"
+    },
+    {
+        "name": "CAKE",
+        "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82"
+    },
+    {
+        "name": "BUNNY",
+        "address": "0xc9849e6fdb743d08faee3e34dd2d1bc69ea11a51"
+    },
+    {
+        "name": "AUTO",
+        "address": "0xa184088a740c695e156f91f5cc086a06bb78b827"
+    },
+    {
+        "name": "ALPACA",
+        "address": "0x8f0528ce5ef7b51152a59745befdd91d97091d2f"
+    },
+    {
+        "name": "BUSD",
+        "address": "0xe9e7cea3dedca5984780bafc599bd69add087d56"
+    },
+    {
+        "name": "USDT",
+        "address": "0x55d398326f99059ff775485246999027b3197955"
+    },
+    {
+        "name": "DOP",
+        "address": "0x844fa82f1e54824655470970f7004dd90546bb28"
+    },
+    {
+        "name": "GROW",
+        "address": "0x8CEF274596d334FFa10f8976a920DDC81ba6e29b"
+    },
+    {
+        "name": "SCZ",
+        "address": "0x39f1014a88c8ec087cedf1bfc7064d24f507b894"
+    },
+    {
+        "name": "BELT",
+        "address": "0xe0e514c71282b6f4e823703a39374cf58dc3ea4f"
+    },
+    {
+        "name": "WATCH",
+        "address": "0x7a9f28eb62c791422aa23ceae1da9c847cbec9b0"
+    },
+    {
+        "name": "DAI",
+        "address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3"
+    },
+    {
+        "name": "XVS",
+        "address": "0xcf6bb5389c92bdda8a3747ddb454cb7a64626c63"
+    },
+    {
+        "name": "vBSWAP",
+        "address": "0x4f0ed527e8a95ecaa132af214dfd41f30b361600"
+    },
+    {
+        "name": "BFI",
+        "address": "0x81859801b01764d4f0fa5e64729f5a6c3b91435b"
+    },
+    {
+        "name": "USDC",
+        "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d"
+    }
+]
