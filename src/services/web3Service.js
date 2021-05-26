@@ -67,8 +67,12 @@ const getGrowMinterContract = () => {
     return getContract(grow.growMinterAbi, grow.growMinterContract);
 }
 
+// const getBnbBalance = async () => {
+//     const balance = await 
+// }
+
 module.exports = {
-    web3: web3,
+    web3,
     getContract,
     getBunnyCakeContract,
     getAutofarmContract,

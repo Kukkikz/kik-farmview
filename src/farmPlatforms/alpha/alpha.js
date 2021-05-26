@@ -13,7 +13,7 @@ const getMyFarmInfo = async (alphaPoolInfo, farmName) => {
 
     const bnbPrice = await priceService.getPrice(bnbAddress);
 
-    result.farmName = farmName;
+    result.farm = farmName;
     result.depositBnb = (alphaPoolInfo[0] - alphaPoolInfo[1]) / 1e18;
     result.depositValue = result.depositBnb * bnbPrice;
     result.totalValue = result.depositValue;

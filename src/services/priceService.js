@@ -1,27 +1,31 @@
 const axios = require("axios");
 const tokens = require("./coinData.json");
+const NodeCache = require("node-cache");
 
+const coinPriceCache = new NodeCache({stdTTL: 600, checkperiod: 300, useClones: false, deleteOnExpire: true});
 const coinPriceData = new Map();
 
 const getPrice = async (address) => {
-    if (coinPriceData.has(address)) {
-        return coinPriceData.get(address);
+    if (coinPriceCache.has(address)) {
+        const price = coinPriceCache.get(address);
+        if (price != undefined) {
+            return price;
+        }
     }
     try {
+        console.log("Downloading ", tokens[address].id);
         let data = {};
         let id = "";
         if (address in tokens) {
             if (tokens[address].source == "pancake") {
                 const res = await axios.get(`https://api.pancakeswap.info/api/v2/tokens/${address}`);
                 data = res.data;
-                console.log(data);
                 if (data.data.price) {
-                    coinPriceData.set(address, data.data.price);
-                    return data.data.price;
+                    coinPriceCache.set(address, parseFloat(data.data.price));
+                    return parseFloat(data.data.price);
                 } else {
                     throw new Error(`Price for ${tokens[address].id} is not found`);
                 }
-                
             }
 
             id = tokens[address].id;
@@ -32,11 +36,11 @@ const getPrice = async (address) => {
             if (data[id || address]) {
                 if(tokens[address].stable) {
                     if(data[id || address].usd <= 1.05 && data[id || address].usd >= 0.95){
-                        coinPriceData.set(address, 1);
+                        coinPriceCache.set(address, 1);
                         return 1;
                     }
                 }
-                coinPriceData.set(address, data[id || address].usd);
+                coinPriceCache.set(address, data[id || address].usd);
                 return data[id || address].usd;
             } else {
                 throw new Error(`Price for ${id} is not found`);
@@ -49,11 +53,6 @@ const getPrice = async (address) => {
     return 0;
 }
 
-const getCoinPriceData = () => {
-    return coinPriceData;
-}
-
 module.exports = {
-    getPrice,
-    getCoinPriceData
+    getPrice
 }
