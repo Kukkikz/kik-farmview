@@ -30,7 +30,7 @@ app.get('/', async (req, res) => {
         const myAddress = req.query.address;
         let response = {};
         let farms = [];
-        
+
         //Bunny - Cake
         console.log("Getting Bunny - Cake");
         const cakeBunnyPoolInfo = await bunnyCakeContract.methods.poolsOf(myAddress, [Web3Service.cakePoolContract]).call();
@@ -62,7 +62,7 @@ app.get('/', async (req, res) => {
         console.log("Getting Alpaca - BNB-BUSD");
         const alpacaPoolInfo = await alpacaWorkerContract.methods.positionInfo(alpaca.myFarmConfig.positionId).call();
         const pendingAlpaca = await alpacaFairlaunchContract.methods.pendingAlpaca(alpaca.myFarmConfig.pid, myAddress).call();
-        const alpacaInfo = await alpaca.getMyFarmInfo(alpacaPoolInfo,pendingAlpaca,"Alpaca - BNB-BUSD");
+        const alpacaInfo = await alpaca.getMyFarmInfo(alpacaPoolInfo, pendingAlpaca, "Alpaca - BNB-BUSD");
         farms.push(alpacaInfo);
 
         //Dopple - DOP Pool
@@ -70,7 +70,7 @@ app.get('/', async (req, res) => {
         const doppleLp = await doppleFairlaunchContract.methods.userInfo(dopple.myFarmConfig.pid, myAddress).call();
         const pendingDopple = await doppleFairlaunchContract.methods.pendingDopple(dopple.myFarmConfig.pid, myAddress).call();
         const doppleLpPrice = await doppleDopPoolContract.methods.getVirtualPrice().call();
-        const doppleInfo = await dopple.getMyFarmInfo(doppleLp.amount,pendingDopple,doppleLpPrice, "Dopple - DOP Pool");
+        const doppleInfo = await dopple.getMyFarmInfo(doppleLp.amount, pendingDopple, doppleLpPrice, "Dopple - DOP Pool");
         farms.push(doppleInfo);
 
         //Alpha Homora - BNB-BUSD
@@ -90,21 +90,26 @@ app.get('/', async (req, res) => {
         const walletData = await walletService.getWalletValue(myAddress);
 
         console.log("Done - send response");
-        if(req.query.detail == "summary") {
-            let farmValue = 0;
-            let walletValue = walletData.totalValue;
-            for (const farm of farms) {
-                console.log('farm ', farm.farm, 'value =', farm.totalValue);
-                farmValue += farm.totalValue;
-            }
+        let farmValue = 0;
+        let walletValue = walletData.totalValue;
+        for (const farm of farms) {
+            farmValue += farm.totalValue;
+        }
+
+        if (req.query.detail == "summary") {
             response.totalValue = farmValue + walletValue;
             response.farmValue = farmValue;
             response.walletValue = walletValue;
         } else {
+            response.summary = {};
+            response.summary.totalValue = farmValue + walletValue;
+            response.summary.farmValue = farmValue;
+            response.summary.walletValue = walletValue;
             response.farms = farms;
             response.wallet = walletData;
+
         }
-        
+
         res.send(response);
     } catch {
         res.status(500);
