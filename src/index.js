@@ -27,6 +27,7 @@ app.get('/', async (req, res) => {
         //Init Data
         console.log("Init Data /");
         autofarm.initFarmData();
+        priceService.getAllCoinPrice();
         const myAddress = req.query.address;
         let response = {};
         let farms = [];
@@ -122,6 +123,7 @@ app.get('/wallet', async (req, res) => {
     try {
         //Init Data
         console.log("Init Data /wallet");
+        priceService.getAllCoinPrice();
         const myAddress = req.query.address;
 
         //Get Wallet Value
@@ -149,6 +151,16 @@ app.get('/tokens/:token', async (req, res) => {
     }
 
 });
+
+app.get('/all-tokens', async (req, res) => {
+    try {
+        priceService.getAllCoinPrice();
+        res.send('OK');
+    } catch {
+        res.status(500);
+        res.send('failed');
+    }
+})
 
 
 app.listen(PORT, () => {
