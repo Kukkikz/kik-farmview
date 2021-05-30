@@ -5,6 +5,7 @@ const alpaca = require('./farmPlatforms/alpaca/alpaca');
 const dopple = require('./farmPlatforms/dopple/dopple');
 const alpha = require('./farmPlatforms/alpha/alpha');
 const grow = require('./farmPlatforms/grow/grow');
+const beefyPolygon = require('./farmPlatforms/beefy-polygon/beefyPolygon');
 const walletService = require('./services/walletService');
 const priceService = require('./services/priceService');
 const express = require('express')
@@ -19,8 +20,9 @@ const alpacaFairlaunchContract = Web3Service.getAlpacaFairlaunchContract();
 const doppleFairlaunchContract = Web3Service.getDoppleFairlaunchContract();
 const doppleDopPoolContract = Web3Service.getDoppleDopPoolContract();
 const alphaContract = Web3Service.getAlphaContract();
-const growFarmContract = Web3Service.getGrowFarmContract();
-const growMinterContract = Web3Service.getGrowMinterContract();
+// const growFarmContract = Web3Service.getGrowFarmContract();
+// const growMinterContract = Web3Service.getGrowMinterContract();
+const beefyPolygonContract = Web3Service.getBeefyPolygonContract();
 
 app.get('/', async (req, res) => {
     try {
@@ -81,11 +83,18 @@ app.get('/', async (req, res) => {
         farms.push(alphaInfo);
 
         //Grow - BUSD farm
-        console.log("Getting Grow - BUSD farm");
-        const growPoolBalance = await growFarmContract.methods.balanceOf(myAddress).call();
-        const pendingGrow = await growMinterContract.methods.strategyUsers(grow.growFarmContract, myAddress).call();
-        const growInfo = await grow.getMyFarmInfo(growPoolBalance, pendingGrow, "Grow - BUSD");
-        farms.push(growInfo);
+        // console.log("Getting Grow - BUSD farm");
+        // const growPoolBalance = await growFarmContract.methods.balanceOf(myAddress).call();
+        // const pendingGrow = await growMinterContract.methods.strategyUsers(grow.growFarmContract, myAddress).call();
+        // const growInfo = await grow.getMyFarmInfo(growPoolBalance, pendingGrow, "Grow - BUSD");
+        // farms.push(growInfo);
+
+        //Beefy Polygon - Iron-BUSD farm
+        console.log("Getting Beefy Polygon - Iron-BUSD farm");
+        const beefyShareBalance = await beefyPolygonContract.methods.balanceOf(myAddress).call();
+        const beefySharePrice = await beefyPolygonContract.methods.getPricePerFullShare().call();
+        const BeefyPolygonInfo = await beefyPolygon.getMyFarmInfo(beefyShareBalance, beefySharePrice, "Beefy Polygon - Iron-BUSD");
+        farms.push(BeefyPolygonInfo);
 
         //Get Wallet
         const walletData = await walletService.getWalletValue(myAddress);

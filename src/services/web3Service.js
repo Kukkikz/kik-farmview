@@ -5,17 +5,29 @@ const alpaca = require("../farmPlatforms/alpaca/alpaca");
 const dopple = require("../farmPlatforms/dopple/dopple");
 const alpha = require("../farmPlatforms/alpha/alpha");
 const grow = require("../farmPlatforms/grow/grow");
+const beefyPolygon = require("../farmPlatforms/beefy-polygon/beefyPolygon");
 
 // You can use any RPC endpoint from
 // https://docs.binance.org/smart-chain/developer/rpc.html
 const BSC_RPC = "https://bsc-dataseed1.defibit.io/";
+const POLYGON_RPC = "https://rpc-mainnet.maticvigil.com/";
 
 const web3 = new Web3(
     new Web3.providers.HttpProvider(BSC_RPC, { keepAlive: true })
 );
 
+const web3Polygon = new Web3(
+    new Web3.providers.HttpProvider(POLYGON_RPC, { keepAlive: true })
+);
+
+
+
 const getContract = (abi, address) => {
     return new web3.eth.Contract(abi, address);
+}
+
+const getContractPolygon = (abi, address) => {
+    return new web3Polygon.eth.Contract(abi, address);
 }
 
 const getBunnyCakeContract = () => {
@@ -67,13 +79,19 @@ const getGrowMinterContract = () => {
     return getContract(grow.growMinterAbi, grow.growMinterContract);
 }
 
+const getBeefyPolygonContract = () => {
+    return getContractPolygon(beefyPolygon.farmAbi, beefyPolygon.farmContract);
+}
+
 // const getBnbBalance = async () => {
 //     const balance = await 
 // }
 
 module.exports = {
     web3,
+    web3Polygon,
     getContract,
+    getContractPolygon,
     getBunnyCakeContract,
     getAutofarmContract,
     cakePoolContract: pancakeBunny.farms.CAKE.address,
@@ -83,5 +101,6 @@ module.exports = {
     getDoppleDopPoolContract,
     getAlphaContract,
     getGrowFarmContract,
-    getGrowMinterContract
+    getGrowMinterContract,
+    getBeefyPolygonContract
 }

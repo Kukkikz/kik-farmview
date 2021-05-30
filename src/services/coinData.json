@@ -155,5 +155,24 @@
         "decimals": 18,
         "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
         "stable": true
+    },
+    "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0": {
+        "id": "matic-network",
+        "symbol": "matic",
+        "name": "Polygon",
+        "platform": "ETHEREUM",
+        "logo": "https://assets.coingecko.com/coins/images/4713/large/matic___polygon.jpg?1612939050",
+        "decimals": 18,
+        "address": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0"
+    },
+    "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174": {
+        "id": "usd-coin",
+        "symbol": "usdc",
+        "name": "USD Coin",
+        "platform": "POLYGON",
+        "logo": "https://assets.coingecko.com/coins/images/6319/large/USD_Coin_icon.png?1547042389",
+        "decimals": 6,
+        "address": "0x2791Bca1f2de4661ED88A30C99A7a9449Aa84174",
+        "stable": true
     }
 }

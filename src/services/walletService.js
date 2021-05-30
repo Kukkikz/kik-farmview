@@ -28,17 +28,34 @@ const getCoinValueinAddress = async (address, coin) => {
     response.name = coin.name;
 
     //Get coin balance
-    if (coin.name == 'BNB') {
-        const balance = await web3Service.web3.eth.getBalance(address);
-        response.balance = balance / 1e18;
-    } else {
-        const tokenContract = await web3Service.getContract(erc20Abi, coin.address);
-        const balance = await tokenContract.methods.balanceOf(address).call();
-        response.balance = balance / 1e18;
-        if (response.balance == 0) {
-            return null;
+    if (coin.platform == 'bsc') {
+        if (coin.name == 'BNB') {
+            const balance = await web3Service.web3.eth.getBalance(address);
+            response.balance = balance / 1e18;
+        } else {
+            const tokenContract = await web3Service.getContract(erc20Abi, coin.address);
+            const balance = await tokenContract.methods.balanceOf(address).call();
+            response.balance = balance / 1e18;
+            if (response.balance == 0) {
+                return null;
+            }
+        }
+    } else if (coin.platform == 'polygon') {
+        if (coin.name == 'MATIC') {
+            const balance = await web3Service.web3Polygon.eth.getBalance(address);
+            response.balance = balance / 1e18;
+            console.log('matic balance =', response.balance);
+        } else {
+            const tokenContract = await web3Service.getContractPolygon(erc20Abi, coin.address);
+            const balance = await tokenContract.methods.balanceOf(address).call();
+            if(coin.name == 'USDC-Polygon'){
+                response.balance = balance / 1e6;
+            } else {
+                response.balance = balance / 1e18;
+            }
         }
     }
+    
 
     //Get price
     response.price = await priceService.getPrice(coin.address);
