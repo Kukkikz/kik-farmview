@@ -1,16 +1,24 @@
 const axios = require("axios");
 
 const farmAbi = require('./abi/farmAbi.json');
-const farmContract = '0x3e349b83A3E68bdD5BB71fAB63dDE123c478FEA4';
-const lpPriceUrl = 'https://api.beefy.finance/lps'
-const lpName = 'iron-iron-usdc';
+const farmContract = [
+    '0x3e349b83A3E68bdD5BB71fAB63dDE123c478FEA4',
+    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141'
+];
 
-const getMyFarmInfo = async (shareBalance, sharePrice, farmName) => {
+const lpPriceUrl = 'https://api.beefy.finance/lps'
+const lpName = {
+    '0x3e349b83A3E68bdD5BB71fAB63dDE123c478FEA4': 'iron-iron-usdc',
+    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141': 'iron-titan-matic'
+    
+};
+
+const getMyFarmInfo = async (shareBalance, sharePrice, farmAddress, farmName) => {
     const result = {};
     result.farm = farmName;
-    const lpPrice = await getlpPrice(lpName);
-    result.depositBalance = shareBalance / 1e18;
-    result.totalValue = result.depositBalance * (sharePrice / 1e18) * lpPrice;
+    const lpPrice = await getlpPrice(lpName[farmAddress]);
+    result.depositBalance = (shareBalance / 1e18) * (sharePrice / 1e18);
+    result.totalValue = result.depositBalance * lpPrice;
 
     return result;
 }

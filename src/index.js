@@ -19,10 +19,12 @@ const alpacaWorkerContract = Web3Service.getAlpacaWorkerContract();
 const alpacaFairlaunchContract = Web3Service.getAlpacaFairlaunchContract();
 const doppleFairlaunchContract = Web3Service.getDoppleFairlaunchContract();
 const doppleDopPoolContract = Web3Service.getDoppleDopPoolContract();
-const alphaContract = Web3Service.getAlphaContract();
+// const alphaContract = Web3Service.getAlphaContract();
 // const growFarmContract = Web3Service.getGrowFarmContract();
 // const growMinterContract = Web3Service.getGrowMinterContract();
-const beefyPolygonContract = Web3Service.getBeefyPolygonContract();
+const beefyPolygonIronContract = Web3Service.getBeefyPolygonContract(beefyPolygon.farmContract[0]);
+const beefyPolygonTitanContract = Web3Service.getBeefyPolygonContract(beefyPolygon.farmContract[1]);
+
 
 app.get('/', async (req, res) => {
     try {
@@ -77,10 +79,10 @@ app.get('/', async (req, res) => {
         farms.push(doppleInfo);
 
         //Alpha Homora - BNB-BUSD
-        console.log("Getting Alpha Homora - BNB-BUSD");
-        const alphaPoolInfo = await alphaContract.methods.positionInfo(alpha.myFarmConfig.positionId).call();
-        const alphaInfo = await alpha.getMyFarmInfo(alphaPoolInfo, "Alpha Homora - BNB-BUSD");
-        farms.push(alphaInfo);
+        // console.log("Getting Alpha Homora - BNB-BUSD");
+        // const alphaPoolInfo = await alphaContract.methods.positionInfo(alpha.myFarmConfig.positionId).call();
+        // const alphaInfo = await alpha.getMyFarmInfo(alphaPoolInfo, "Alpha Homora - BNB-BUSD");
+        // farms.push(alphaInfo);
 
         //Grow - BUSD farm
         // console.log("Getting Grow - BUSD farm");
@@ -91,10 +93,17 @@ app.get('/', async (req, res) => {
 
         //Beefy Polygon - Iron-BUSD farm
         console.log("Getting Beefy Polygon - Iron-BUSD farm");
-        const beefyShareBalance = await beefyPolygonContract.methods.balanceOf(myAddress).call();
-        const beefySharePrice = await beefyPolygonContract.methods.getPricePerFullShare().call();
-        const BeefyPolygonInfo = await beefyPolygon.getMyFarmInfo(beefyShareBalance, beefySharePrice, "Beefy Polygon - Iron-BUSD");
-        farms.push(BeefyPolygonInfo);
+        const beefyShareBalance = await beefyPolygonIronContract.methods.balanceOf(myAddress).call();
+        const beefySharePrice = await beefyPolygonIronContract.methods.getPricePerFullShare().call();
+        const beefyPolygonInfo = await beefyPolygon.getMyFarmInfo(beefyShareBalance, beefySharePrice, beefyPolygon.farmContract[0], "Beefy Polygon - Iron-BUSD");
+        farms.push(beefyPolygonInfo);
+
+        //Beefy Polygon - Titam-Matic farm
+        console.log("Getting Beefy Polygon - Titam-Matic farm");
+        const beefyTitanShareBalance = await beefyPolygonTitanContract.methods.balanceOf(myAddress).call();
+        const beefyTitanSharePrice = await beefyPolygonTitanContract.methods.getPricePerFullShare().call();
+        const beefyTitanInfo = await beefyPolygon.getMyFarmInfo(beefyTitanShareBalance, beefyTitanSharePrice, beefyPolygon.farmContract[1], 'Beefy Polygon - Titam-Matic');
+        farms.push(beefyTitanInfo);
 
         //Get Wallet
         const walletData = await walletService.getWalletValue(myAddress);

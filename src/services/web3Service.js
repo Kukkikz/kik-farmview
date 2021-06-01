@@ -79,8 +79,8 @@ const getGrowMinterContract = () => {
     return getContract(grow.growMinterAbi, grow.growMinterContract);
 }
 
-const getBeefyPolygonContract = () => {
-    return getContractPolygon(beefyPolygon.farmAbi, beefyPolygon.farmContract);
+const getBeefyPolygonContract = (farmAddress) => {
+    return getContractPolygon(beefyPolygon.farmAbi, farmAddress);
 }
 
 // const getBnbBalance = async () => {
