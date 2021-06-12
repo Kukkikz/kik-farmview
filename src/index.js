@@ -24,6 +24,7 @@ const doppleDopPoolContract = Web3Service.getDoppleDopPoolContract();
 // const growMinterContract = Web3Service.getGrowMinterContract();
 const beefyPolygonIronContract = Web3Service.getBeefyPolygonContract(beefyPolygon.farmContract[0]);
 const beefyPolygonTitanContract = Web3Service.getBeefyPolygonContract(beefyPolygon.farmContract[1]);
+const beefyPolygonCurveContract = Web3Service.getBeefyPolygonContract(beefyPolygon.farmContract[2]);
 
 
 app.get('/', async (req, res) => {
@@ -98,12 +99,21 @@ app.get('/', async (req, res) => {
         const beefyPolygonInfo = await beefyPolygon.getMyFarmInfo(beefyShareBalance, beefySharePrice, beefyPolygon.farmContract[0], "Beefy Polygon - Iron-BUSD");
         farms.push(beefyPolygonInfo);
 
-        //Beefy Polygon - Titam-Matic farm
-        console.log("Getting Beefy Polygon - Titam-Matic farm");
+        //Beefy Polygon - Titan-Matic farm
+        console.log("Getting Beefy Polygon - Titan-Matic farm");
         const beefyTitanShareBalance = await beefyPolygonTitanContract.methods.balanceOf(myAddress).call();
         const beefyTitanSharePrice = await beefyPolygonTitanContract.methods.getPricePerFullShare().call();
-        const beefyTitanInfo = await beefyPolygon.getMyFarmInfo(beefyTitanShareBalance, beefyTitanSharePrice, beefyPolygon.farmContract[1], 'Beefy Polygon - Titam-Matic');
+        const beefyTitanInfo = await beefyPolygon.getMyFarmInfo(beefyTitanShareBalance, beefyTitanSharePrice, beefyPolygon.farmContract[1], 'Beefy Polygon - Titan-Matic');
         farms.push(beefyTitanInfo);
+
+        //Beefy Polygon - Curve farm
+        console.log("Getting Beefy Polygon - Curve farm");
+        const beefyCurveShareBalance = await beefyPolygonCurveContract.methods.balanceOf(myAddress).call();
+        const beefyCurveSharePrice = await beefyPolygonCurveContract.methods.getPricePerFullShare().call();
+        const beefyCurveInfo = await beefyPolygon.getMyFarmInfo(beefyCurveShareBalance, beefyCurveSharePrice, beefyPolygon.farmContract[2], 'Beefy Polygon - Curve stable coins');
+        farms.push(beefyCurveInfo);
+
+
 
         //Get Wallet
         const walletData = await walletService.getWalletValue(myAddress);

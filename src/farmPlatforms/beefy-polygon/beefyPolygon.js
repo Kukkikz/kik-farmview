@@ -3,13 +3,15 @@ const axios = require("axios");
 const farmAbi = require('./abi/farmAbi.json');
 const farmContract = [
     '0x3e349b83A3E68bdD5BB71fAB63dDE123c478FEA4',
-    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141'
+    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141',
+    '0xAA7C2879DaF8034722A0977f13c343aF0883E92e'
 ];
 
 const lpPriceUrl = 'https://api.beefy.finance/lps'
 const lpName = {
     '0x3e349b83A3E68bdD5BB71fAB63dDE123c478FEA4': 'iron-iron-usdc',
-    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141': 'iron-titan-matic'
+    '0xE63aCEbE35265896cC6E8BdB8eCC0640a1807141': 'iron-titan-matic',
+    '0xAA7C2879DaF8034722A0977f13c343aF0883E92e': 'curve-am3crv'
     
 };
 
